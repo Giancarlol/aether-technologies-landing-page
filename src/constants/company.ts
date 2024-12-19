@@ -1,0 +1,2 @@
+export const COMPANY_NAME = 'AETHER-TECHNOLOGIES';
+export const COMPANY_DESCRIPTION = 'specializes in creating cutting-edge web and mobile applications, implementing AI-driven solutions, and helping businesses digitalize their processes for maximum efficiency and scalability.';

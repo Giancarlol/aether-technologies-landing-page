@@ -1,37 +1,75 @@
 import React, { useEffect, useRef } from 'react';
 
+declare global {
+  interface Window {
+    YT: {
+      Player: new (
+        elementId: string,
+        config: {
+          videoId: string;
+          playerVars?: Record<string, any>;
+          events?: {
+            onReady?: (event: { target: any }) => void;
+            onStateChange?: (event: { target: any; data: number }) => void;
+          };
+        }
+      ) => void;
+    };
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
 const VideoBackground: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    // Function to calculate dimensions
-    const setDimensions = () => {
+    // Load YouTube IFrame Player API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+    // Initialize player when API is ready
+    window.onYouTubeIframeAPIReady = () => {
       if (!containerRef.current) return;
-      const width = containerRef.current.offsetWidth;
-      const height = containerRef.current.offsetHeight;
-      const iframe = containerRef.current.querySelector('iframe');
-      if (iframe) {
-        // Calculate dimensions to maintain aspect ratio and cover the container
-        const aspectRatio = 16 / 9;
-        let newWidth = width;
-        let newHeight = width / aspectRatio;
-        
-        if (newHeight < height) {
-          newHeight = height;
-          newWidth = height * aspectRatio;
+
+      const player = new window.YT.Player('youtube-player', {
+        videoId: 'H2qBL8yGOJs',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          enablejsapi: 1,
+          modestbranding: 1,
+          iv_load_policy: 3,
+          playsinline: 1,
+          mute: 1,
+          origin: window.location.origin,
+          playlist: 'H2qBL8yGOJs',
+        },
+        events: {
+          onReady: (event) => {
+            event.target.setPlaybackQuality('hd1080');
+            event.target.playVideo();
+          },
+          onStateChange: (event) => {
+            // Force HD quality whenever the state changes
+            event.target.setPlaybackQuality('hd1080');
+          }
         }
-        
-        iframe.style.width = `${newWidth}px`;
-        iframe.style.height = `${newHeight}px`;
-        iframe.style.left = `${(width - newWidth) / 2}px`;
-        iframe.style.top = `${(height - newHeight) / 2}px`;
-      }
+      });
+
+      playerRef.current = player;
     };
 
-    // Set dimensions initially and on resize
-    setDimensions();
-    window.addEventListener('resize', setDimensions);
-    return () => window.removeEventListener('resize', setDimensions);
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.destroy();
+      }
+    };
   }, []);
 
   return (
@@ -45,13 +83,12 @@ const VideoBackground: React.FC = () => {
         right: 0,
       }}
     >
-      <iframe
-        src="https://www.youtube.com/embed/H2qBL8yGOJs?autoplay=1&loop=1&mute=1&controls=0&showinfo=0&rel=0&playlist=H2qBL8yGOJs&vq=hd1080"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        className="absolute"
+      <div 
+        id="youtube-player"
+        className="absolute w-full h-full"
         style={{
-          border: 'none',
-          pointerEvents: 'none',
+          transform: 'scale(1.5)',
+          transformOrigin: 'center center',
         }}
       />
       <div

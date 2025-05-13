@@ -35,7 +35,16 @@ const VideoBackground: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 overflow-hidden">
+    <div 
+      ref={containerRef} 
+      className="absolute z-0 overflow-hidden"
+      style={{
+        top: '120px',  // More space for the header
+        bottom: '120px', // More space at the bottom
+        left: 0,
+        right: 0,
+      }}
+    >
       <iframe
         src="https://www.youtube.com/embed/H2qBL8yGOJs?autoplay=1&loop=1&mute=1&controls=0&showinfo=0&rel=0&playlist=H2qBL8yGOJs&vq=hd1080"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -48,8 +57,14 @@ const VideoBackground: React.FC = () => {
       <div
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%)',
+          background: `
+            linear-gradient(to bottom,
+              rgba(0,0,0,1) 0%,
+              rgba(0,0,0,0.7) 10%,
+              rgba(0,0,0,0.4) 50%,
+              rgba(0,0,0,0.7) 90%,
+              rgba(0,0,0,1) 100%
+            )`,
           backdropFilter: 'blur(2px)',
         }}
       ></div>

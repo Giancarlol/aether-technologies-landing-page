@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Play } from 'lucide-react';
 import ClientExperiencesSlider from './ClientExperiencesSlider';
 import RotatingMessage from './RotatingMessage';
@@ -12,6 +12,8 @@ const features = [
 ];
 
 const CaseStudies = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  
   return (
     <>
       <section id="case-studies" className="py-32 tech-pattern">
@@ -45,16 +47,32 @@ const CaseStudies = () => {
             <div className="lg:w-1/2">
               <div className="glass-card rounded-xl overflow-hidden shadow-lg">
                 <div className="relative aspect-video">
-                  <img 
-                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" 
-                    alt="Demo" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full p-4 shadow-lg btn-glow cursor-pointer">
-                      <Play size={32} className="text-white" />
-                    </div>
-                  </div>
+                  {isPlaying ? (
+                    <video
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      controls
+                      src="/demo-video.mp4"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <>
+                      <img 
+                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" 
+                        alt="Demo" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <button 
+                          onClick={() => setIsPlaying(true)}
+                          className="bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full p-4 shadow-lg btn-glow cursor-pointer hover:scale-110 transition-transform duration-200"
+                        >
+                          <Play size={32} className="text-white" />
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 hero-glow">Interactive Solution Demo</h3>

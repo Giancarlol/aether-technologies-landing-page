@@ -41,6 +41,7 @@ const Contact = () => {
             onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="_to" value="contact@aethertechnologies.se" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>

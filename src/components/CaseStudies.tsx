@@ -52,7 +52,7 @@ const CaseStudies = () => {
                       className="w-full h-full object-cover"
                       autoPlay
                       controls
-                      src="/demo-video.mp4"
+                      src="/demo.mp4"
                     >
                       Your browser does not support the video tag.
                     </video>

@@ -1,7 +1,32 @@
 import { COMPANY_NAME } from '../constants/company';
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 const Contact = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    // Reset success message when component mounts
+    setShowSuccess(false);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    
+    // Submit the form programmatically
+    const formData = new FormData(form);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+    .then(() => {
+      setShowSuccess(true);
+      form.reset();
+    })
+    .catch((error) => console.log("Form submission error:", error));
+  };
+
   return (
     <section id="contact" className="py-32 tech-pattern">
       <div className="container mx-auto px-4">
@@ -13,9 +38,9 @@ const Contact = () => {
             className="space-y-6"
             name="contact" 
             method="POST" 
-            action="/success"
             data-netlify="true"
             netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
           >
             <input type="hidden" name="form-name" value="contact" />
             <div className="hidden">
@@ -61,6 +86,11 @@ const Contact = () => {
                 Send Message
                 <span className="ml-2">→</span>
               </button>
+              {showSuccess && (
+                <div className="mt-4 text-green-400 text-lg font-semibold">
+                Message sent! We'll get back to you soon.
+                </div>
+              )}
             </div>
           </form>
         </div>

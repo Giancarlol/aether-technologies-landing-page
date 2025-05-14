@@ -6,13 +6,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[forms]
-  contact = "contact"
-
-[[forms.contact.notifications]]
-  provider = "email"
-  to = "contact@aethertechnologies.se"
-  from = "noreply@netlify.com"
-  subject = "New Contact Form Submission"
-  includeData = true

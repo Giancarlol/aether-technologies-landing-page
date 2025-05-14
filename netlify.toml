@@ -6,3 +6,9 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[forms]
+  [forms.contact]
+    [forms.contact.notifications]
+      [forms.contact.notifications.email]
+        to = "contact@aethertechnologies.se"

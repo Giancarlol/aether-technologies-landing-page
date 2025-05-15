@@ -21,7 +21,7 @@ const VideoBackground: React.FC = () => {
         playsInline
         className="absolute w-full h-full"
         style={{
-          transform: 'scale(1.5)',
+          transform: 'scale(1.1)',
           transformOrigin: 'center center',
           objectFit: 'cover',
         }}
@@ -40,7 +40,7 @@ const VideoBackground: React.FC = () => {
               rgba(0,0,0,0.7) 90%,
               rgba(0,0,0,1) 100%
             )`,
-          backdropFilter: 'blur(2px)',
+          backdropFilter: 'blur(0px)',
         }}
       ></div>
     </div>

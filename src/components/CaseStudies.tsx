@@ -59,8 +59,8 @@ const CaseStudies = () => {
                   ) : (
                     <>
                       <img 
-                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" 
-                        alt="Demo" 
+                        src="/thumbnail.png" 
+                        alt="Demo Video Thumbnail" 
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -75,7 +75,7 @@ const CaseStudies = () => {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 hero-glow">Interactive Solution Demo</h3>
+                  <h3 className="text-xl font-semibold mb-2 hero-glow">Solution Demo</h3>
                   <p className="text-gray-400 text-sm">Watch how our solutions can transform your business processes.</p>
                 </div>
               </div>
